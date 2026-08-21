@@ -16,4 +16,17 @@
     };
   };
 
+  home.packages = with pkgs;[
+    ani-cli
+    neovim
+    bitwarden-desktop
+    proton-vpn
+    fastfetch
+    jetbrains-toolbox
+    vesktop
+    vscodium
+    lutris
+    pciutils
+  ];
+
 }
