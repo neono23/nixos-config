@@ -30,6 +30,14 @@
     nerd-fonts.jetbrains-mono
   ];
 
+  programs.mpv = {
+    enable = true;
+    config = {
+      target-colorspace-hint = "no";
+      icc-profile-auto = "no";
+    };
+  };
+
   fonts.fontconfig.enable = true;
 
 }
