@@ -94,15 +94,11 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
   services.xserver.videoDrivers = [ "nvidia" ];
-
   hardware.graphics.enable = true;
-
   hardware.nvidia.open = true;
-
   hardware.nvidia.dynamicBoost.enable = true;
-
+  hardware.nvidia.powerManagement.enable = true;
   hardware.bluetooth.enable=true;
 
 

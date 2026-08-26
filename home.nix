@@ -28,6 +28,8 @@
     lutris
     pciutils
     nerd-fonts.jetbrains-mono
+    xclicker
+    prismlauncher
   ];
 
   programs.mpv = {
