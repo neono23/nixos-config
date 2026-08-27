@@ -30,6 +30,7 @@
     nerd-fonts.jetbrains-mono
     xclicker
     prismlauncher
+    kdePackages.kcalc
   ];
 
   programs.mpv = {
