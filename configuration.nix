@@ -1,10 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
-      inputs.silentSDDM.nixosModules.default
+      ./sddm.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -39,11 +39,6 @@
 
   services.xserver.enable = true;
 
-  programs.silentSDDM = {
-    enable = true;
-    theme = "default";
-  };
-
   services.desktopManager.plasma6.enable = true;
 
   services.xserver.xkb = {
@@ -63,7 +58,6 @@
   };
 
   services.flatpak.enable = true;
-
 
   users.users."stefan" = {
     isNormalUser = true;
@@ -85,15 +79,12 @@
   hardware.nvidia.powerManagement.enable = true;
   hardware.bluetooth.enable=true;
 
-
   environment.systemPackages = with pkgs; [
     gcc
     cmake
     gnumake
     gdb
-    kdePackages.sddm-kcm
   ];
-
 
   programs.steam = {
   enable = true;

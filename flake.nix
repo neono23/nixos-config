@@ -9,16 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    silentSDDM = {
-      url = "github:uiriansan/SilentSDDM";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, silentSDDM, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system= "x86_64-linux";
-      specialArgs = {inherit inputs; };
       modules = [ 
         ./configuration.nix
 
