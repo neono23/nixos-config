@@ -4,16 +4,17 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./sddm.nix
+      #./sddm.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 
   nix.gc = {
     automatic=true;
     dates="weekly";
-    options= "--delete-older-than 10d";
+    options= "--delete-older-than 15d";
   };
 
   networking.hostName = "nixos";
@@ -40,6 +41,7 @@
   services.xserver.enable = true;
 
   services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
 
   services.xserver.xkb = {
     layout = "us";
@@ -74,9 +76,10 @@
   nixpkgs.config.allowUnfree = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
-  hardware.nvidia.open = true;
+  hardware.nvidia.open = false;
   hardware.nvidia.dynamicBoost.enable = true;
   hardware.nvidia.powerManagement.enable = true;
+  hardware.nvidia.modesetting.enable = true;
   hardware.bluetooth.enable=true;
 
   environment.systemPackages = with pkgs; [
@@ -84,6 +87,7 @@
     cmake
     gnumake
     gdb
+    unrar
   ];
 
   programs.steam = {
