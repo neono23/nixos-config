@@ -9,11 +9,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    anipy-cli = {
+      url= "github:sdaqo/anipy-cli";
+    };
+
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system= "x86_64-linux";
+      specialArgs = {inherit inputs; };
       modules = [ 
         ./configuration.nix
 
@@ -21,7 +26,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-
+          home-manager.extraSpecialArgs = { inherit inputs; };
           home-manager.users.stefan = import ./home.nix;
         }
       ];

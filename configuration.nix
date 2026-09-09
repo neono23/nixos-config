@@ -17,6 +17,19 @@
     options= "--delete-older-than 15d";
   };
 
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:neono23/nixos-config#nixos";
+    flags = [
+      "--update-input" "nixpkgs"
+      "--update-input" "home-manager"
+      "-L"
+    ];
+    dates = "weekly";
+    randomizedDelaySec = "45min";
+    allowReboot = false;
+  };
+
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
