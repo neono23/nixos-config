@@ -1,15 +1,5 @@
 {config, pkgs, inputs, ...}:
 
-let 
-    ani-cli-latest = pkgs.ani-cli.overrideAttrs (old:{
-      src = pkgs.fetchFromGitHub {
-        owner = "pystardust";
-        repo = "ani-cli";
-        rev = "master";
-        sha256 = "sha256-H//rbOiJGss0tmpHiJvV1DjGs3hK1KOzisbU93kUvjY=";
-      };
-    });
-  in
 {
   home.username = "stefan";
   home.homeDirectory = "/home/stefan";
@@ -27,7 +17,8 @@ let
   };
 
   home.packages = with pkgs;[
-    ani-cli-latest
+    usbutils
+    ani-cli
     neovim
     bitwarden-desktop
     proton-vpn
@@ -41,9 +32,6 @@ let
     xclicker
     prismlauncher
     kdePackages.kcalc
-    (inputs.anipy-cli.packages.${pkgs.system}.default.overrideAttrs (old: {
-    meta = (old.meta or {}) // { license = lib.licenses.mit; };
-  }))
   ];
 
   programs.mpv = {
