@@ -6,6 +6,47 @@
 
   home.stateVersion = "26.05";
 
+  imports = [
+   inputs.areofyl-fetch.homeManagerModules.default
+   ./niri/noctalia.nix	
+  ];
+
+  programs.fetch = {
+    enable = true;
+    labelColor = "red";
+    info = [
+    "host"
+	  "kernel"
+	  "uptime"
+	  "packages"
+	  "shell"
+	  "display" 
+	  "wm"
+	  "theme"
+	  "icons"
+	  "font"
+	  "terminal"
+  	"cpu"
+  	"gpu"
+	  "memory"
+	  "swap"
+	  "disk"
+	  "ip"
+	  "battery"
+	  "locale"
+	  "colors"
+    ];
+    speed = 1.0;
+    spin = "xy";
+  };
+
+  programs.kitty = {
+  enable = true;
+  settings = {
+     confirm_os_window_close = 0;
+    };
+  };
+
   programs.git = {
     enable = true;
     settings = {
@@ -17,6 +58,7 @@
   };
 
   home.packages = with pkgs;[
+    swaylock
     usbutils
     ani-cli
     neovim

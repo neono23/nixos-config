@@ -9,10 +9,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    anipy-cli = {
-      url= "github:sdaqo/anipy-cli";
-    };
-
+    areofyl-fetch.url = "github:areofyl/fetch";
+    
+    noctalia.url = "github:noctalia-dev/noctalia";
+    noctalia.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {

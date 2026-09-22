@@ -5,6 +5,7 @@
     [
       ./hardware-configuration.nix
       #./sddm.nix
+      ./niri/niri.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
