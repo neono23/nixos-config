@@ -38,6 +38,8 @@
 
   time.timeZone = "Europe/Bucharest";
 
+  environment.etc."timezone".text = config.time.timeZone;
+ 
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -89,6 +91,7 @@
 
   nixpkgs.config.allowUnfree = true;
   services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.graphics.enable32Bit = true;
   hardware.graphics.enable = true;
   hardware.nvidia.open = false;
   hardware.nvidia.dynamicBoost.enable = true;

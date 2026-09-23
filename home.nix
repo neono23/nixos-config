@@ -26,8 +26,8 @@
 	  "icons"
 	  "font"
 	  "terminal"
-  	"cpu"
-  	"gpu"
+	  "cpu"
+  	  "gpu"
 	  "memory"
 	  "swap"
 	  "disk"
@@ -39,6 +39,21 @@
     speed = 1.0;
     spin = "xy";
   };
+
+  programs.swaylock = {
+  enable = true;
+  settings = {
+    image = "/home/stefan/Documents/Wallpapers/wide_tokyonight_skyline.jpg";
+    indicator-idle-visible = false;
+    indicator-radius = 100;
+    indicator-thickness = 10;
+    ring-color = "89b4fa";
+    ring-clear-color = "f38ba8";
+    ring-ver-color = "a6e3a1";
+    key-hl-color = "89b4fa";
+    show-failed-attempts = true;
+  };
+};
 
   programs.kitty = {
   enable = true;
@@ -57,8 +72,8 @@
     };
   };
 
+
   home.packages = with pkgs;[
-    swaylock
     usbutils
     ani-cli
     neovim
