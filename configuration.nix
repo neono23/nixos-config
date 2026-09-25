@@ -4,12 +4,12 @@
   imports =
     [
       ./hardware-configuration.nix
-      #./sddm.nix
+      ./sddm.nix
       ./niri/niri.nix
     ];
 
+  boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 
   nix.gc = {
@@ -37,8 +37,6 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   time.timeZone = "Europe/Bucharest";
-
-  environment.etc."timezone".text = config.time.timeZone;
  
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -56,8 +54,10 @@
 
   services.xserver.enable = true;
 
-  services.desktopManager.plasma6.enable = true;
+  #services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   services.xserver.xkb = {
     layout = "us";
@@ -65,6 +65,7 @@
   };
 
   services.printing.enable = true;
+  services.tumbler.enable = true; 
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -80,14 +81,8 @@
   users.users."stefan" = {
     isNormalUser = true;
     description = "Hongu Stefan";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" ]; 
   };
-
-  programs.firefox.enable = false;
 
   nixpkgs.config.allowUnfree = true;
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -132,6 +127,8 @@
     freetype
     fontconfig
   ];
+
+  programs.xfconf.enable = true;
   
   system.stateVersion = "26.05";
 

@@ -59,6 +59,7 @@
   enable = true;
   settings = {
      confirm_os_window_close = 0;
+     background_opacity = "0.9";
     };
   };
 
@@ -72,6 +73,11 @@
     };
   };
 
+  home.pointerCursor = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 24;
+  };
 
   home.packages = with pkgs;[
     usbutils
@@ -85,10 +91,24 @@
     vscodium
     lutris
     pciutils
-    nerd-fonts.jetbrains-mono
     xclicker
     prismlauncher
     kdePackages.kcalc
+    ffmpegthumbnailer
+    nwg-look
+    adwaita-icon-theme
+    gnome-themes-extra
+    thunar
+    kdePackages.okular
+    libreoffice
+    loupe
+    btop
+    kdePackages.kate
+    kdePackages.breeze
+    kdePackages.breeze-gtk
+    kdePackages.plasma-workspace
+    kdePackages.plasma-integration
+    kdePackages.breeze-icons
   ];
 
   programs.mpv = {
