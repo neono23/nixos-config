@@ -8,7 +8,8 @@
 
   imports = [
    inputs.areofyl-fetch.homeManagerModules.default
-   ./niri/noctalia.nix	
+   ./niri/noctalia.nix
+   ./kde.nix
   ];
 
   programs.fetch = {
@@ -73,15 +74,7 @@
     };
   };
 
-  home.pointerCursor = {
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 24;
-  };
-
   home.packages = with pkgs;[
-    usbutils
-    ani-cli
     neovim
     bitwarden-desktop
     proton-vpn
@@ -93,22 +86,22 @@
     pciutils
     xclicker
     prismlauncher
-    kdePackages.kcalc
     ffmpegthumbnailer
     nwg-look
-    adwaita-icon-theme
-    gnome-themes-extra
     thunar
-    kdePackages.okular
     libreoffice
     loupe
     btop
-    kdePackages.kate
-    kdePackages.breeze
-    kdePackages.breeze-gtk
-    kdePackages.plasma-workspace
-    kdePackages.plasma-integration
-    kdePackages.breeze-icons
+    (ani-cli.overrideAttrs (old: {
+      version = "latest";
+      src = pkgs.fetchFromGitHub {
+        owner = "pystardust";
+	repo = "ani-cli";
+	rev = "v5.1";
+	hash = "sha256-lPQA3iO3F/9NS2IziQccsJ3aai6WMQy6YObdB3mDCZA=";
+	};
+    }))
+
   ];
 
   programs.mpv = {

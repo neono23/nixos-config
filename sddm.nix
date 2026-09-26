@@ -2,7 +2,7 @@
 
 let
   custom-sddm-astronaut = pkgs.sddm-astronaut.override {
-    embeddedTheme = "jake_the_dog"; # or "purple_leaves", "japanese_aesthetic", "pixel_sakura", "jake_the_dog"
+    embeddedTheme = "black_hole"; # or "purple_leaves", "japanese_aesthetic", "pixel_sakura", "jake_the_dog"
   };
 in
   {

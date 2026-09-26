@@ -6,6 +6,9 @@
       ./hardware-configuration.nix
       ./sddm.nix
       ./niri/niri.nix
+      ./fonts.nix
+      ./nvidia.nix
+      ./terminalcmd.nix
     ];
 
   boot.loader.efi.canTouchEfiVariables = false;
@@ -58,6 +61,7 @@
   services.displayManager.sddm.enable = true;
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
+  services.qbittorrent.enable = true;
 
   services.xserver.xkb = {
     layout = "us";
@@ -85,14 +89,10 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.graphics.enable32Bit = true;
-  hardware.graphics.enable = true;
-  hardware.nvidia.open = false;
-  hardware.nvidia.dynamicBoost.enable = true;
-  hardware.nvidia.powerManagement.enable = true;
-  hardware.nvidia.modesetting.enable = true;
-  hardware.bluetooth.enable=true;
+  hardware.bluetooth = {
+  	enable = true;
+	powerOnBoot = false;
+  };
 
   environment.systemPackages = with pkgs; [
     gcc
@@ -108,27 +108,13 @@
   localNetworkGameTransfers.openFirewall = true;
   };
 
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    stdenv.cc.cc
-    zlib
-    fuse3
-    icu
-    libunwind
-    libuuid
-    glib
-    libX11
-    libXext
-    libXrender
-    libXtst
-    libXi
-    libXrandr
-    libXcursor
-    freetype
-    fontconfig
-  ];
-
   programs.xfconf.enable = true;
+
+  virtualisation.virtualbox.host = {
+  	enable = true;
+	enableExtensionPack = true;
+  };
+  users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
   
   system.stateVersion = "26.05";
 
