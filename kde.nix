@@ -14,6 +14,7 @@
     kdePackages.breeze-icons
     #not kde but still themes
     adwaita-icon-theme
+    bibata-cursors
     gnome-themes-extra
   ];
 }

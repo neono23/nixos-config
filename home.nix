@@ -12,6 +12,8 @@
    ./kde.nix
   ];
 
+  services.udiskie.enable = true;
+
   programs.fetch = {
     enable = true;
     labelColor = "red";
@@ -53,9 +55,22 @@
     ring-ver-color = "a6e3a1";
     key-hl-color = "89b4fa";
     show-failed-attempts = true;
+    };
   };
-};
 
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set fish_greeting
+
+      set -g fish_color_command blue
+      set -g fish_color_param cyan
+      set -g fish_color_error red
+      set -g fish_color_quote yellow
+
+    '';
+  };
+  
   programs.kitty = {
   enable = true;
   settings = {
@@ -75,6 +90,8 @@
   };
 
   home.packages = with pkgs;[
+    postman
+    qbittorrent
     neovim
     bitwarden-desktop
     proton-vpn
@@ -92,6 +109,7 @@
     libreoffice
     loupe
     btop
+    xarchiver
     (ani-cli.overrideAttrs (old: {
       version = "latest";
       src = pkgs.fetchFromGitHub {
