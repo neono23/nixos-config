@@ -46,7 +46,7 @@
   programs.swaylock = {
   enable = true;
   settings = {
-    image = "/home/stefan/Documents/Wallpapers/wide_tokyonight_skyline.jpg";
+    image = "/home/stefan/Documents/Wallpapers/Pisica.jpg";
     indicator-idle-visible = false;
     indicator-radius = 100;
     indicator-thickness = 10;
@@ -75,7 +75,7 @@
   enable = true;
   settings = {
      confirm_os_window_close = 0;
-     background_opacity = "0.9";
+     background_opacity = "0.75";
     };
   };
 
@@ -101,7 +101,6 @@
     vscodium
     lutris
     pciutils
-    xclicker
     prismlauncher
     ffmpegthumbnailer
     nwg-look
@@ -119,7 +118,16 @@
 	hash = "sha256-lPQA3iO3F/9NS2IziQccsJ3aai6WMQy6YObdB3mDCZA=";
 	};
     }))
-
+    (python3.withPackages (ps: with ps; [
+      numpy
+      pandas
+      matplotlib
+      scikit-learn
+      torch
+      torchinfo
+      ipykernel
+      notebook
+     ]))
   ];
 
   programs.mpv = {

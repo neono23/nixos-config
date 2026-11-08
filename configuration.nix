@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -9,12 +9,14 @@
       ./fonts.nix
       ./nvidia.nix
       ./terminalcmd.nix
+      ./dns.nix
     ];
 
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.systemd-boot.enable = true;
   boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
 
   nix.gc = {
     automatic=true;
@@ -73,7 +75,8 @@
   services.udisks2.enable = true;
 
   services.printing.enable = true;
-  services.tumbler.enable = true; 
+  services.tumbler.enable = true;
+  services.udev.packages = [pkgs.brightnessctl];
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -90,13 +93,13 @@
   users.users."stefan" = {
     isNormalUser = true;
     description = "Hongu Stefan";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "video"];
     shell = pkgs.fish;
   };
 
   services.postgresql = {
   enable = true;
-  package = pkgs.postgresql_18;   # sau postgresql_16 / 17
+  package = pkgs.postgresql_18;
   enableTCPIP = true;
   authentication = pkgs.lib.mkOverride 10 ''
     local all all trust
@@ -106,6 +109,7 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
   hardware.bluetooth = {
   	enable = true;
 	powerOnBoot = false;
@@ -121,15 +125,54 @@
   };
 
   environment.systemPackages = with pkgs; [
+    brightnessctl
+    dotnet-sdk_10
     p7zip
     unzip
     gcc
+    ninja
     dbeaver-bin
     maven
     cmake
     gnumake
     gdb
     unrar
+    unixodbc
+    claude-code  
+  ]++ (let unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}; in [
+  unstable.nodejs_26
+  unstable.typescript
+  ]);
+
+  programs.nix-ld.enable = true;
+
+  programs.nix-ld.libraries = with pkgs; [
+  libICE
+  libSM
+  stdenv.cc.cc
+  zlib
+  openssl
+  icu
+  curl
+  fontconfig.lib
+  freetype
+  libGL
+  libxkbcommon
+  libX11
+  libXcursor
+  libXext
+  libXrandr
+  libXi
+  libXrender
+  libXfixes
+  libXinerama
+  libXcomposite
+  libxcb
+  libffi
+  expat
+  libpng
+  libjpeg
+  harfbuzz
   ];
 
   programs.steam = {
